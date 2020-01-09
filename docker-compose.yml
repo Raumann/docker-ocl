@@ -1,0 +1,35 @@
+version: '2'
+services:
+    # Install de mysql
+    mysql:
+        image: mysql:8.0
+        container_name: mysql-server-80
+        command: --default-authentication-plugin=mysql_native_password
+        # working_dir: /application
+        volumes:
+          - .:/application
+        # mysql est redemarré, peu importe le container qui est monté
+        restart: always
+        environment:
+          - MYSQL_ROOT_PASSWORD=dockertest
+          - MYSQL_DATABASE=memory
+          - MYSQL_USER=raumann
+          - MYSQL_PASSWORD=raumann
+        ports:
+          - "8082:3306"
+    # Nom utilisé pour communiquer avec les autres containers
+    website:
+        # Nom du container
+        container_name: php_site
+        # Nom de l'image créé avec docker build
+        image: php_repo:php_img
+        build:
+            # Chemin vers le Dockerfile
+            context: ./
+        volumes:
+            # Chemin des fichiers à transférer : destination
+            - /Users/charleshoffmann/Sites/docker-ocl/src:/var/www/html/
+        ports:
+            - 8080:80
+        depends_on:
+            - mysql
