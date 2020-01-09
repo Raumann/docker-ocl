@@ -34,7 +34,7 @@ Docker recommande de donner un nom au repository :
 Après avoir lancé `docker-compose up --build`, ouvrir un autre terminal et tapez :
 - `docker exec -it mysql-server-80  bash -l` => pour pouvoir se connecter à la partie server
 - `mysql -u root -p` => pour se connecter à mysql
-- mdp enregistré dans docker-compose
+- mdp enregistré dans docker-compose.yml
 
 SHOW DATABASES; => voir les bases de données
 
